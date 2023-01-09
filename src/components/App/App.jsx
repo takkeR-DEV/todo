@@ -97,8 +97,21 @@ class App extends Component {
     }
   };
 
+  resetChange = () => {
+    this.setState(({ todoData }) => {
+      const newArray = [];
+      for (let data of todoData) {
+        data.edit = false;
+        newArray.push(data);
+      }
+      return {
+        todoData: newArray,
+      };
+    });
+  };
   setFilter = (filter) => {
     this.setState({ filter });
+    this.resetChange();
   };
 
   countActive = () => {
@@ -127,7 +140,7 @@ class App extends Component {
 
   render() {
     return (
-      <section className="todoapp">
+      <section className="todoapp" onClickCapture={this.resetChange}>
         <Header onItemAdd={this.addItem} />
         <section className="main">
           <TaskList

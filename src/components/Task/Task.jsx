@@ -47,7 +47,7 @@ export default class Task extends Component {
     return edit ? (
       <li className="editing">
         <form onSubmit={onSubmitEdit}>
-          <input className="edit" type="text" value={this.state.value} onChange={this.setTaskValue} />
+          <input className="edit" type="text" value={this.state.value} onChange={this.setTaskValue} autoFocus />
         </form>
       </li>
     ) : (
