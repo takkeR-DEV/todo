@@ -11,10 +11,35 @@ class App extends Component {
   state = {
     filter: 'All',
     todoData: [
-      { id: 100, task: 'TEST', completed: false },
-      { id: 101, task: 'TEST', completed: false },
-      { id: 102, task: 'TEST', completed: false },
+      { id: 100, task: 'TEST1', completed: false, edit: false },
+      { id: 101, task: 'TEST2', completed: false, edit: false },
+      { id: 102, task: 'TEST3', completed: false, edit: false },
     ],
+  };
+
+  editTask = (id) => {
+    this.setState(({ todoData }) => {
+      const index = todoData.findIndex((data) => data.id === id);
+      const oldData = todoData[index];
+      const newData = { ...oldData, edit: !oldData.edit };
+      const newArray = [...todoData.slice(0, index), newData, ...todoData.slice(index + 1)];
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
+  onSubmitEdit = (e, id) => {
+    e.preventDefault();
+    this.setState(({ todoData }) => {
+      const index = todoData.findIndex((data) => data.id === id);
+      const oldData = todoData[index];
+      const newData = { ...oldData, edit: !oldData.edit, task: e.target[0].value };
+      const newArray = [...todoData.slice(0, index), newData, ...todoData.slice(index + 1)];
+      return {
+        todoData: newArray,
+      };
+    });
   };
 
   deleteItem = (id) => {
@@ -109,6 +134,8 @@ class App extends Component {
             todoData={this.getRender()}
             onDeleted={this.deleteItem}
             onToggleCompleted={this.onToggleCompleted}
+            editTask={this.editTask}
+            onSubmitEdit={this.onSubmitEdit}
           />
           <Footer setFilter={this.setFilter} removeCompleted={this.removeCompleted} countActive={this.countActive} />
         </section>

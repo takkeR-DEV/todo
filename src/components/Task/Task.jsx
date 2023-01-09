@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
+import { formatDistanceToNow } from 'date-fns';
 
 import './Task.css';
 export default class Task extends Component {
@@ -16,6 +16,7 @@ export default class Task extends Component {
   state = {
     data: new Date(),
     dataText: null,
+    value: this.props.task,
   };
   interval;
 
@@ -37,10 +38,19 @@ export default class Task extends Component {
   componentWillUnmount() {
     clearInterval(this.interval);
   }
+  setTaskValue = (event) => {
+    this.setState({ value: event.target.value });
+  };
   render() {
-    const { id, onToggleCompleted, completed, onDeleted, task } = this.props;
+    const { id, onToggleCompleted, completed, onDeleted, task, editTask, edit, onSubmitEdit } = this.props;
     const { dataText } = this.state;
-    return (
+    return edit ? (
+      <li className="editing">
+        <form onSubmit={onSubmitEdit}>
+          <input className="edit" type="text" value={this.state.value} onChange={this.setTaskValue} />
+        </form>
+      </li>
+    ) : (
       <li className={completed ? 'completed' : null}>
         <div className="view">
           <input id={id} className="toggle" type="checkbox" onClick={onToggleCompleted} />
@@ -48,7 +58,7 @@ export default class Task extends Component {
             <span className="description">{task}</span>
             <span className="created">created {dataText} ago</span>
           </label>
-          <button className="icon icon-edit"></button>
+          <button className="icon icon-edit" onClick={editTask}></button>
           <button className="icon icon-destroy" onClick={onDeleted}></button>
         </div>
       </li>
