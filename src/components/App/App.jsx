@@ -12,7 +12,7 @@ class App extends Component {
     filter: 'All',
     todoData: [
       { id: 100, task: 'TEST1', completed: false, edit: false },
-      { id: 101, task: 'TEST2', completed: false, edit: false },
+      { id: 101, task: 'TEST2', completed: false, edit: true },
       { id: 102, task: 'TEST3', completed: false, edit: false },
     ],
   };
