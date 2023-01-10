@@ -58,8 +58,9 @@
     "prettier": "^2.8.2"
   },
   "lint-staged": {
-    "*.jsx": [
-      "npm run lint:fix"
+    "*.(js|jsx|ts|tsx)": [
+      "npm run lint:fix",
+      "git add ."
     ]
   }
 }
