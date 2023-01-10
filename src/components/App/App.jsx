@@ -1,13 +1,3 @@
-/*
-
-	
-https://github.com/takkeR-DEV/todo/blob/main/src/components/NewTaskForm/NewTaskForm.jsx#L7-L8 что это за пропсы? И где переданный? 
-
-	
-В целом по приложению много не обработанных пропсов. 
-
-
-*/
 import React, { Component } from 'react';
 
 import Header from '../Header/Header';
@@ -103,18 +93,6 @@ class App extends Component {
     }
   };
 
-  // resetChange = () => {
-  //   this.setState(({ todoData }) => {
-  //     const newArray = [];
-  //     for (let data of todoData) {
-  //       data.edit = false;
-  //       newArray.push(data);
-  //     }
-  //     return {
-  //       todoData: newArray,
-  //     };
-  //   });
-  // };
   setFilter = (filter) => {
     this.setState({ filter });
   };
