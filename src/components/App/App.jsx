@@ -10,11 +10,7 @@ class App extends Component {
   maxId = 1;
   state = {
     filter: 'All',
-    todoData: [
-      { id: 100, task: 'TEST1', completed: false, edit: false },
-      { id: 101, task: 'TEST2', completed: false, edit: false },
-      { id: 102, task: 'TEST3', completed: false, edit: false },
-    ],
+    todoData: [],
   };
 
   editTask = (id) => {
