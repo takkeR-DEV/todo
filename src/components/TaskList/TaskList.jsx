@@ -6,22 +6,26 @@ import Task from '../Task/Task';
 import './TaskList.css';
 const TaskList = (props) => {
   const { todoData, onDeleted, onToggleCompleted, editTask, onSubmitEdit } = props;
-  const renderData = todoData.map((x) => {
-    return (
-      <Task
-        id={x.id}
-        key={x.id}
-        task={x.task}
-        completed={x.completed}
-        edit={x.edit}
-        onDeleted={() => onDeleted(x.id)}
-        onToggleCompleted={() => onToggleCompleted(x.id)}
-        editTask={() => editTask(x.id)}
-        onSubmitEdit={(e) => onSubmitEdit(e, x.id)}
-      />
-    );
-  });
-  return <ul className="todo-list">{renderData}</ul>;
+  return (
+    <ul className="todo-list">
+      {todoData.map((data) => {
+        return (
+          <Task
+            id={data.id}
+            key={data.id}
+            task={data.task}
+            completed={data.completed}
+            edit={data.edit}
+            time={data.time}
+            onDeleted={() => onDeleted(data.id)}
+            onToggleCompleted={() => onToggleCompleted(data.id)}
+            editTask={() => editTask(data.id)}
+            onSubmitEdit={(event) => onSubmitEdit(event, data.id)}
+          />
+        );
+      })}
+    </ul>
+  );
 };
 
 TaskList.defaultProps = {
@@ -30,7 +34,7 @@ TaskList.defaultProps = {
 };
 
 TaskList.propTypes = {
-  // todoData: PropTypes.arrayOf(PropTypes.object),
+  todoData: PropTypes.arrayOf(PropTypes.object),
   onDeleted: PropTypes.func,
   onToggleCompleted: PropTypes.func,
 };

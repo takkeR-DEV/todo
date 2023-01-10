@@ -37,6 +37,7 @@ export default class NewTaskForm extends Component {
           onChange={this.onChangeInput}
           value={task}
           autoFocus
+          required
         />
       </form>
     );

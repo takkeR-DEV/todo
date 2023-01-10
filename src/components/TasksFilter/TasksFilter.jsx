@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import './TasksFilter.css';
 export default class TaskFilter extends Component {
   state = {
@@ -8,10 +9,10 @@ export default class TaskFilter extends Component {
     const { setFilter } = this.props;
     const { active } = this.state;
     const filters = [{ name: 'All' }, { name: 'Active' }, { name: 'Completed' }];
-    const liFilters = filters.map((el, i) => (
-      <li key={i + 1000}>
+    const liFilters = filters.map((el, index) => (
+      <li key={index}>
         <button
-          className={active === el.name ? 'selected' : null}
+          className={classNames(null, { selected: active === el.name })}
           onClick={() => {
             setFilter(el.name);
             this.setState({

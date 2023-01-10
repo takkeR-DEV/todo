@@ -7,9 +7,7 @@ import './Footer.css';
 const Footer = ({ setFilter, removeCompleted, countActive }) => {
   return (
     <footer className="footer">
-      <span className="todo-count" onClick={countActive}>
-        {countActive()} items left
-      </span>
+      <span className="todo-count">{countActive()} items left</span>
       <TaskFilter setFilter={setFilter} />
       <button className="clear-completed" onClick={removeCompleted}>
         Clear completed

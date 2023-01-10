@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
+import classNames from 'classnames';
 
 import './Task.css';
 export default class Task extends Component {
@@ -14,7 +15,6 @@ export default class Task extends Component {
   };
 
   state = {
-    data: new Date(),
     dataText: null,
     value: this.props.task,
   };
@@ -22,7 +22,7 @@ export default class Task extends Component {
 
   setStateDataText = () => {
     this.setState({
-      dataText: formatDistanceToNow(this.state.data, { includeSeconds: true }),
+      dataText: formatDistanceToNow(this.props.time, { includeSeconds: true }),
     });
   };
   timer = () => {
@@ -51,9 +51,9 @@ export default class Task extends Component {
         </form>
       </li>
     ) : (
-      <li className={completed ? 'completed' : null}>
+      <li className={classNames(null, { completed: completed })}>
         <div className="view">
-          <input id={id} className="toggle" type="checkbox" onClick={onToggleCompleted} />
+          <input id={id} className="toggle" type="checkbox" onChange={onToggleCompleted} checked={completed} />
           <label htmlFor={id}>
             <span className="description">{task}</span>
             <span className="created">created {dataText} ago</span>

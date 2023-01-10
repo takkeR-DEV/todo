@@ -1,3 +1,23 @@
+/*
+
+	
+https://github.com/takkeR-DEV/todo/blob/main/src/components/NewTaskForm/NewTaskForm.jsx#L7-L8 что это за пропсы? И где переданный? 
+
+	
+В целом по приложению много не обработанных пропсов. 
+
+	
+https://github.com/takkeR-DEV/todo/blob/main/src/components/TaskList/TaskList.jsx#L9 переменные нужно обозначать понятно, e – element это принятое сокращение, что такое x непонятно. 
+
+	
+
+	
+ 
+
+	
+https://github.com/takkeR-DEV/todo/blob/main/src/components/TasksFilter/TasksFilter.jsx#L14 для таких случаев есть хорошая библиотека classnames (https://www.npmjs.com/package/classnames ) рекомендую познакомиться и использовать. 
+
+*/
 import React, { Component } from 'react';
 
 import Header from '../Header/Header';
@@ -25,12 +45,12 @@ class App extends Component {
     });
   };
 
-  onSubmitEdit = (e, id) => {
-    e.preventDefault();
+  onSubmitEdit = (event, id) => {
+    event.preventDefault();
     this.setState(({ todoData }) => {
       const index = todoData.findIndex((data) => data.id === id);
       const oldData = todoData[index];
-      const newData = { ...oldData, edit: !oldData.edit, task: e.target[0].value };
+      const newData = { ...oldData, edit: !oldData.edit, task: event.target[0].value };
       const newArray = [...todoData.slice(0, index), newData, ...todoData.slice(index + 1)];
       return {
         todoData: newArray,
@@ -55,6 +75,8 @@ class App extends Component {
         id: this.maxId++,
         task: text,
         completed: false,
+        edit: false,
+        time: new Date(),
       };
       this.setState(({ todoData }) => {
         const newArray = [...todoData, newItem];
@@ -62,8 +84,6 @@ class App extends Component {
           todoData: newArray,
         };
       });
-    } else {
-      alert('Поле не может быть пустым,введите вашу задачу в поле ввода! Пример: Закончить React');
     }
   };
 
