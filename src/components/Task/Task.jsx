@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
 import classNames from 'classnames';
 
 import './Task.css';
 export default class Task extends Component {
-  static defaultProps = {
-    setStateDataText: () => {},
-    timer: () => {},
-  };
-  static propTypes = {
-    setStateDataText: PropTypes.func,
-    timer: PropTypes.func,
-  };
-
   state = {
     dataText: null,
     value: this.props.task,
@@ -43,11 +33,11 @@ export default class Task extends Component {
   };
   render() {
     const { id, onToggleCompleted, completed, onDeleted, task, editTask, edit, onSubmitEdit } = this.props;
-    const { dataText } = this.state;
+    const { dataText, value, setTaskValue } = this.state;
     return edit ? (
       <li className="editing">
         <form onSubmit={onSubmitEdit}>
-          <input className="edit" type="text" value={this.state.value} onChange={this.setTaskValue} autoFocus />
+          <input className="edit" type="text" value={value} onChange={setTaskValue} autoFocus />
         </form>
       </li>
     ) : (

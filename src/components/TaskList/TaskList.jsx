@@ -29,14 +29,19 @@ const TaskList = (props) => {
 };
 
 TaskList.defaultProps = {
-  onDeleted: () => {},
+  todoData: [],
   onToggleCompleted: () => {},
+  onSubmitEdit: () => {},
+  onDeleted: () => {},
+  editTask: () => {},
 };
 
 TaskList.propTypes = {
   todoData: PropTypes.arrayOf(PropTypes.object),
-  onDeleted: PropTypes.func,
   onToggleCompleted: PropTypes.func,
+  onSubmitEdit: PropTypes.func,
+  onDeleted: PropTypes.func,
+  editTask: PropTypes.func,
 };
 
 export default TaskList;

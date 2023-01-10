@@ -6,16 +6,6 @@ https://github.com/takkeR-DEV/todo/blob/main/src/components/NewTaskForm/NewTaskF
 	
 В целом по приложению много не обработанных пропсов. 
 
-	
-https://github.com/takkeR-DEV/todo/blob/main/src/components/TaskList/TaskList.jsx#L9 переменные нужно обозначать понятно, e – element это принятое сокращение, что такое x непонятно. 
-
-	
-
-	
- 
-
-	
-https://github.com/takkeR-DEV/todo/blob/main/src/components/TasksFilter/TasksFilter.jsx#L14 для таких случаев есть хорошая библиотека classnames (https://www.npmjs.com/package/classnames ) рекомендую познакомиться и использовать. 
 
 */
 import React, { Component } from 'react';
