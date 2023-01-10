@@ -37,7 +37,7 @@ export default class Task extends Component {
     return edit ? (
       <li className="editing">
         <form onSubmit={onSubmitEdit}>
-          <input className="edit" type="text" value={value} onChange={setTaskValue} autoFocus />
+          <input className="edit" type="text" defaultValue={value} onChange={setTaskValue} autoFocus />
         </form>
       </li>
     ) : (
