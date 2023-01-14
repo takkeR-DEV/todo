@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 import { formatDistanceToNow } from 'date-fns';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './Task.css';
 export default class Task extends Component {
+  static defaultProps = {
+    onToggleCompleted: () => {},
+    onSubmitEdit: () => {},
+    onDeleted: () => {},
+    editTask: () => {},
+  };
+  static propTypes = {
+    onToggleCompleted: PropTypes.func,
+    onSubmitEdit: PropTypes.func,
+    onDeleted: PropTypes.func,
+    editTask: PropTypes.func,
+  };
   state = {
     dataText: null,
     value: this.props.task,
