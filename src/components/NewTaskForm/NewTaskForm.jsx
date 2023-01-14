@@ -4,12 +4,10 @@ import './NewTaskForm.css';
 
 export default class NewTaskForm extends Component {
   static defaultProps = {
-    onSubmitForm: () => {},
-    onChangeInput: () => {},
+    onItemAdd: () => {},
   };
   static propTypes = {
-    onSubmitForm: PropTypes.func,
-    onChangeInput: PropTypes.func,
+    onItemAdd: PropTypes.func,
   };
 
   state = {
