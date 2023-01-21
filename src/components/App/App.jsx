@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Header from '../Header/Header';
+import Header from '../Header/Header'; // Header
 import TaskList from '../TaskList/TaskList';
 import Footer from '../Footer/Footer';
 
