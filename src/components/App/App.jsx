@@ -140,7 +140,7 @@ class App extends Component {
             return el;
           }
           if (!el.pause) {
-            el.timer = el.timer - 0.5;
+            el.timer = el.timer - 1;
           }
           return el;
         });
