@@ -42,7 +42,6 @@ export default class Task extends Component {
   }
   componentWillUnmount() {
     clearInterval(this.interval);
-    clearInterval(this.intervalTimer);
   }
   setTaskValue = (event) => {
     this.setState({ value: event.target.value });
