@@ -49,7 +49,7 @@ class App extends Component {
     });
   };
 
-  addItem = (text) => {
+  addItem = (text, time) => {
     if (text) {
       const newItem = {
         id: this.maxId++,
@@ -57,6 +57,8 @@ class App extends Component {
         completed: false,
         edit: false,
         time: new Date(),
+        timer: time,
+        pause: true,
       };
       this.setState(({ todoData }) => {
         const newArray = [...todoData, newItem];
@@ -68,16 +70,7 @@ class App extends Component {
   };
 
   onToggleCompleted = (id) => {
-    this.setState(({ todoData }) => {
-      const index = todoData.findIndex((el) => el.id === id);
-
-      const oldItem = todoData[index];
-      const newItem = { ...oldItem, completed: !oldItem.completed };
-      const newArray = [...todoData.slice(0, index), newItem, ...todoData.slice(index + 1)];
-      return {
-        todoData: newArray,
-      };
-    });
+    this.changeItemInData(id, 'completed');
   };
 
   getRender = () => {
@@ -121,6 +114,55 @@ class App extends Component {
     });
   };
 
+  //Замена значения
+
+  changeItemInData = (id, value, boolean) => {
+    this.setState(({ todoData }) => {
+      const index = todoData.findIndex((el) => el.id === id);
+
+      const oldItem = todoData[index];
+      if (typeof boolean === 'undefined') boolean = !oldItem[value];
+      const newItem = { ...oldItem, [value]: boolean };
+      const newArray = [...todoData.slice(0, index), newItem, ...todoData.slice(index + 1)];
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
+  // Установка таймера
+
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.setState(({ todoData }) => {
+        let newArr = todoData.map((el) => {
+          if (el.timer === 0) {
+            return el;
+          }
+          if (!el.pause) {
+            el.timer = el.timer - 0.5;
+          }
+          return el;
+        });
+        return {
+          todoData: newArr,
+        };
+      });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  onStop = (id) => {
+    this.changeItemInData(id, 'pause', true);
+  };
+
+  onStart = (id) => {
+    this.changeItemInData(id, 'pause', false);
+  };
+
   render() {
     return (
       <section className="todoapp">
@@ -132,6 +174,8 @@ class App extends Component {
             onToggleCompleted={this.onToggleCompleted}
             editTask={this.editTask}
             onSubmitEdit={this.onSubmitEdit}
+            onStop={this.onStop}
+            onStart={this.onStart}
           />
           <Footer setFilter={this.setFilter} removeCompleted={this.removeCompleted} countActive={this.countActive} />
         </section>

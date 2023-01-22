@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -10,18 +11,21 @@ export default class Task extends Component {
     onSubmitEdit: () => {},
     onDeleted: () => {},
     editTask: () => {},
+    timer: 0,
+    time: new Date(),
   };
   static propTypes = {
     onToggleCompleted: PropTypes.func,
     onSubmitEdit: PropTypes.func,
     onDeleted: PropTypes.func,
     editTask: PropTypes.func,
+    timer: PropTypes.number,
+    time: PropTypes.object,
   };
   state = {
     dataText: null,
     value: this.props.task,
   };
-  interval;
 
   setStateDataText = () => {
     this.setState({
@@ -33,17 +37,27 @@ export default class Task extends Component {
       this.setStateDataText();
     }, 1000);
   };
-
   componentDidMount() {
     this.setStateDataText();
     this.timer();
   }
   componentWillUnmount() {
     clearInterval(this.interval);
+    clearInterval(this.intervalTimer);
   }
   setTaskValue = (event) => {
     this.setState({ value: event.target.value });
   };
+
+  timerSet = () => {
+    const { timer } = this.props;
+    return `${Math.floor(timer / 60)
+      .toString()
+      .padStart(2, '0')}:${Math.floor(this.props.timer % 60)
+      .toString()
+      .padStart(2, '0')}`;
+  };
+
   render() {
     const { id, onToggleCompleted, completed, onDeleted, task, editTask, edit, onSubmitEdit } = this.props;
     const { dataText, value, setTaskValue } = this.state;
@@ -58,7 +72,12 @@ export default class Task extends Component {
         <div className="view">
           <input id={id} className="toggle" type="checkbox" onChange={onToggleCompleted} checked={completed} />
           <label htmlFor={id}>
-            <span className="description">{task}</span>
+            <span className="title">{task}</span>
+            <div className="description">
+              <button className="icon icon-play" onClick={this.props.onStart}></button>
+              <button className="icon icon-pause" onClick={this.props.onStop}></button>
+              <span className="timer">{this.timerSet()}</span>
+            </div>
             <span className="created">created {dataText} ago</span>
           </label>
           <button className="icon icon-edit" onClick={editTask}></button>
