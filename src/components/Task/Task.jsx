@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
