@@ -50,7 +50,7 @@ export default class Task extends Component {
   timerSet = () => {
     const { timer } = this.props;
 
-    if (timer < 0) return '0:0';
+    if (timer < 0) return '00:00';
     return `${Math.floor(timer / 60)
       .toString()
       .padStart(2, '0')}:${Math.floor(this.props.timer % 60)
