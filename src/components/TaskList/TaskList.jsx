@@ -36,8 +36,7 @@ TaskList.defaultProps = {
   onSubmitEdit: () => {},
   onDeleted: () => {},
   editTask: () => {},
-  onStop: () => {},
-  onStart: () => {},
+  changeTimerValue: () => {},
 };
 
 TaskList.propTypes = {
