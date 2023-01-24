@@ -10,6 +10,7 @@ export default class Task extends Component {
     onSubmitEdit: () => {},
     onDeleted: () => {},
     editTask: () => {},
+    changeTimerValue: () => {},
     timer: 0,
     time: new Date(),
   };
@@ -18,12 +19,15 @@ export default class Task extends Component {
     onSubmitEdit: PropTypes.func,
     onDeleted: PropTypes.func,
     editTask: PropTypes.func,
+    changeTimerValue: PropTypes.func,
     timer: PropTypes.number,
     time: PropTypes.object,
   };
   state = {
     dataText: null,
     value: this.props.task,
+    timer: this.props.timer,
+    pause: true,
   };
 
   setStateDataText = () => {
@@ -34,28 +38,47 @@ export default class Task extends Component {
   timer = () => {
     this.interval = setInterval(() => {
       this.setStateDataText();
+      this.timerRun();
     }, 1000);
   };
+
+  timerRun = () => {
+    const { pause, timer } = this.state;
+
+    if (!pause) this.setState({ timer: timer - 1 });
+  };
+
   componentDidMount() {
     this.setStateDataText();
     this.timer();
   }
   componentWillUnmount() {
+    const { id, changeTimerValue } = this.props;
+    const { timer } = this.state;
     clearInterval(this.interval);
+    changeTimerValue(id, timer);
   }
   setTaskValue = (event) => {
     this.setState({ value: event.target.value });
   };
 
   timerSet = () => {
-    const { timer } = this.props;
+    const { timer } = this.state;
 
     if (timer < 0) return '00:00';
     return `${Math.floor(timer / 60)
       .toString()
-      .padStart(2, '0')}:${Math.floor(this.props.timer % 60)
+      .padStart(2, '0')}:${Math.floor(timer % 60)
       .toString()
       .padStart(2, '0')}`;
+  };
+
+  onPlay = () => {
+    this.setState({ pause: false });
+  };
+
+  onPause = () => {
+    this.setState({ pause: true });
   };
 
   render() {
@@ -74,8 +97,8 @@ export default class Task extends Component {
           <label htmlFor={id}>
             <span className="title">{task}</span>
             <div className="description">
-              <button className="icon icon-play" onClick={this.props.onStart}></button>
-              <button className="icon icon-pause" onClick={this.props.onStop}></button>
+              <button className="icon icon-play" onClick={this.onPlay}></button>
+              <button className="icon icon-pause" onClick={this.onPause}></button>
               <span className="timer">{this.timerSet()}</span>
             </div>
             <span className="created">created {dataText} ago</span>

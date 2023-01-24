@@ -5,7 +5,7 @@ import Task from '../Task/Task';
 
 import './TaskList.css';
 const TaskList = (props) => {
-  const { todoData, onDeleted, onToggleCompleted, editTask, onSubmitEdit, onStop, onStart } = props;
+  const { todoData, onDeleted, onToggleCompleted, editTask, onSubmitEdit, changeTimerValue } = props;
   return (
     <ul className="todo-list">
       {todoData.map((data) => {
@@ -21,8 +21,7 @@ const TaskList = (props) => {
             onToggleCompleted={() => onToggleCompleted(data.id)}
             editTask={() => editTask(data.id)}
             onSubmitEdit={(event) => onSubmitEdit(event, data.id)}
-            onStop={() => onStop(data.id)}
-            onStart={() => onStart(data.id)}
+            changeTimerValue={(id, timer) => changeTimerValue(id, timer)}
             timer={data.timer}
           />
         );
@@ -47,8 +46,7 @@ TaskList.propTypes = {
   onSubmitEdit: PropTypes.func,
   onDeleted: PropTypes.func,
   editTask: PropTypes.func,
-  onStop: PropTypes.func,
-  onStart: PropTypes.func,
+  changeTimerValue: PropTypes.func,
 };
 
 export default TaskList;
