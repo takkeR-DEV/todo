@@ -33,16 +33,21 @@ export default class NewTaskForm extends Component {
   };
 
   onChangeInputMin = (e) => {
+    let value = e.target.value;
+    if (value != '') e.target.value = this.clamp(+value, 0, 1440) || 0;
     this.setState({
       min: e.target.value,
     });
   };
 
   onChangeInputSec = (e) => {
+    let value = e.target.value;
+    if (value != '') e.target.value = this.clamp(+value, 0, 60) || 0;
     this.setState({
       sec: e.target.value,
     });
   };
+  clamp = (value, min, max) => (value > max ? max : value < min ? min : value);
   render() {
     const { task, min, sec } = this.state;
     return (
