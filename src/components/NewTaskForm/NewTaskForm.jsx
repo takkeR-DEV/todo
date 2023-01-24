@@ -47,7 +47,11 @@ export default class NewTaskForm extends Component {
       sec: e.target.value,
     });
   };
-  clamp = (value, min, max) => (value > max ? max : value < min ? min : value);
+  clamp = (value, min, max) => {
+    if (value > max) return max;
+    if (value < min) return min;
+    return value;
+  };
   render() {
     const { task, min, sec } = this.state;
     return (
