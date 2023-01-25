@@ -123,6 +123,8 @@ class App extends Component {
 
   // Установка таймера
 
+  //Test
+
   changeTimerValue = (id, value) => {
     this.setState(({ todoData }) => {
       const index = todoData.findIndex((el) => {
