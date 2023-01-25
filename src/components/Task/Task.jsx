@@ -28,6 +28,7 @@ export default class Task extends Component {
     value: this.props.task,
     timer: this.props.timer,
     pause: true,
+    unmount: false,
   };
 
   setStateDataText = () => {
@@ -54,9 +55,12 @@ export default class Task extends Component {
   }
   componentWillUnmount() {
     const { id, changeTimerValue } = this.props;
-    const { timer } = this.state;
-    clearInterval(this.interval);
-    changeTimerValue(id, timer);
+    const { timer, unmount } = this.state;
+    if (unmount) {
+      clearInterval(this.interval);
+      changeTimerValue(id, timer);
+    }
+    this.setState({ unmount: true });
   }
   setTaskValue = (event) => {
     this.setState({ value: event.target.value });

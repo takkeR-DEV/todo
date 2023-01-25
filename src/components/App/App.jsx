@@ -69,7 +69,15 @@ class App extends Component {
   };
 
   onToggleCompleted = (id) => {
-    this.changeItemInData(id, 'completed');
+    this.setState(({ todoData }) => {
+      const index = todoData.findIndex((data) => data.id === id);
+      const oldData = todoData[index];
+      const newData = { ...oldData, completed: !oldData.completed };
+      const newArray = [...todoData.slice(0, index), newData, ...todoData.slice(index + 1)];
+      return {
+        todoData: newArray,
+      };
+    });
   };
 
   getRender = () => {
@@ -115,28 +123,32 @@ class App extends Component {
 
   //Замена значения
 
-  changeItemInData = (id, value) => {
-    this.setState(({ todoData }) => {
-      const index = todoData.findIndex((el) => el.id === id);
+  // changeItemInData = (id, value) => {
+  //   this.setState(({ todoData }) => {
+  //     const index = todoData.findIndex((el) => el.id === id);
 
-      const oldItem = todoData[index];
-      const newItem = { ...oldItem, [value]: !oldItem[value] };
-      const newArray = [...todoData.slice(0, index), newItem, ...todoData.slice(index + 1)];
-      return {
-        todoData: newArray,
-      };
-    });
-  };
+  //     const oldItem = todoData[index];
+  //     const newItem = { ...oldItem, [value]: !oldItem[value] };
+  //     const newArray = [...todoData.slice(0, index), newItem, ...todoData.slice(index + 1)];
+  //     return {
+  //       todoData: newArray,
+  //     };
+  //   });
+  // };
 
   // Установка таймера
 
   changeTimerValue = (id, value) => {
     this.setState(({ todoData }) => {
-      const index = todoData.findIndex((el) => el.id === id);
+      const index = todoData.findIndex((el) => {
+        return el.id === id;
+      });
 
       const oldItem = todoData[index];
+      if (typeof oldItem === 'undefined') return;
       const newItem = { ...oldItem, timer: value };
       const newArray = [...todoData.slice(0, index), newItem, ...todoData.slice(index + 1)];
+
       return {
         todoData: newArray,
       };

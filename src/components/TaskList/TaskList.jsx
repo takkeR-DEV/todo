@@ -21,7 +21,7 @@ const TaskList = (props) => {
             onToggleCompleted={() => onToggleCompleted(data.id)}
             editTask={() => editTask(data.id)}
             onSubmitEdit={(event) => onSubmitEdit(event, data.id)}
-            changeTimerValue={(id, timer) => changeTimerValue(id, timer)}
+            changeTimerValue={(i, v) => changeTimerValue(i, v)}
             timer={data.timer}
           />
         );
