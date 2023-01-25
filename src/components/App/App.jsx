@@ -121,21 +121,6 @@ class App extends Component {
     });
   };
 
-  //Замена значения
-
-  // changeItemInData = (id, value) => {
-  //   this.setState(({ todoData }) => {
-  //     const index = todoData.findIndex((el) => el.id === id);
-
-  //     const oldItem = todoData[index];
-  //     const newItem = { ...oldItem, [value]: !oldItem[value] };
-  //     const newArray = [...todoData.slice(0, index), newItem, ...todoData.slice(index + 1)];
-  //     return {
-  //       todoData: newArray,
-  //     };
-  //   });
-  // };
-
   // Установка таймера
 
   changeTimerValue = (id, value) => {
